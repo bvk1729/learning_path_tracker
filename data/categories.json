@@ -1,0 +1,42 @@
+[
+  {
+    "id": "dc-1",
+    "name": "Programming Languages",
+    "color": "blue"
+  },
+  {
+    "id": "dc-2",
+    "name": "Data & Analytics",
+    "color": "green"
+  },
+  {
+    "id": "dc-3",
+    "name": "AI & Machine Learning",
+    "color": "purple"
+  },
+  {
+    "id": "dc-4",
+    "name": "Cloud & DevOps",
+    "color": "orange"
+  },
+  {
+    "id": "dc-5",
+    "name": "Web Development",
+    "color": "cyan"
+  },
+  {
+    "id": "dc-6",
+    "name": "Productivity & Tools",
+    "color": "yellow"
+  },
+  {
+    "id": "dc-7",
+    "name": "Design & UX",
+    "color": "pink"
+  },
+  {
+    "id": "dc-8",
+    "name": "Cybersecurity",
+    "color": "red"
+  }
+]
