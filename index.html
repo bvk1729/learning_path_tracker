@@ -27,7 +27,6 @@
             <li class="nav-item" data-target="progress-section"><i class="ph ph-chart-line-up"></i> Progress</li>
             <li class="nav-item" data-target="manage-section"><i class="ph ph-gear"></i> Manage</li>
             <li class="nav-item" data-target="profile-section"><i class="ph ph-user"></i> Profile</li>
-            <li class="nav-item" data-target="sync-section"><i class="ph ph-cloud-arrow-up"></i> Sync</li>
         </ul>
     </nav>
 
@@ -285,160 +284,160 @@
 
         </section>
 
-        <!-- PROFILE -->
+        <!-- PROFILE & SETTINGS -->
         <section id="profile-section" class="content-section">
-            <div class="header"><h1>Your Profile</h1><p>Manage your personal details.</p></div>
-            <div class="form-card max-w-md">
-                
-                <!-- VIEW MODE -->
-                <div id="profile-view">
-                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                        <div class="avatar-placeholder" id="view-avatar-container" style="margin: 0 0 20px 0;"><i class="ph ph-user"></i></div>
-                        <button class="action-btn edit-btn" onclick="toggleProfileEdit(true)"><i class="ph ph-pencil"></i> Edit Profile</button>
-                    </div>
-                    <h2 id="view-profile-name" style="margin-bottom: 4px; font-size: 24px;"></h2>
-                    <p id="view-profile-role" style="color:var(--accent-blue); font-weight: 600; font-size: 15px; margin-bottom: 16px;"></p>
-                    <p id="view-profile-email" style="color:var(--text-secondary); font-size: 14px; margin-bottom: 8px; display:flex; align-items:center; gap:6px;"><i class="ph ph-envelope-simple"></i> <span></span></p>
-                    <p id="view-profile-phone" style="color:var(--text-secondary); font-size: 14px; margin-bottom: 24px; display:flex; align-items:center; gap:6px;"><i class="ph ph-phone"></i> <span></span></p>
-                    
-                    <div style="background:var(--bg-sidebar); padding:16px; border-radius:8px; margin-bottom:24px;">
-                        <h4 style="font-size:12px; text-transform:uppercase; color:var(--text-secondary); margin-bottom:8px; letter-spacing:0.05em;">About Me</h4>
-                        <p id="view-profile-bio" style="font-size: 14px; line-height: 1.6; color: var(--text-primary);"></p>
-                    </div>
-                    
-                    <div id="view-profile-links" style="display:flex; gap:12px; flex-wrap:wrap;"></div>
-                </div>
-
-                <!-- EDIT MODE -->
-                <form id="profile-form" style="display:none;">
-                    <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px;">
-                        <div class="avatar-placeholder" id="edit-avatar-preview" style="margin:0;"><i class="ph ph-user"></i></div>
-                        <input type="file" id="profile-avatar-upload" accept="image/*" style="font-size: 13px; color: var(--text-secondary);">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Display Name</label>
-                        <input type="text" id="profile-name" placeholder="John Doe">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Job Title / Role</label>
-                        <input type="text" id="profile-role" placeholder="e.g. Full-Stack Developer">
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" id="profile-email" placeholder="john@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label>Contact Number</label>
-                            <input type="tel" id="profile-phone" placeholder="+1 234 567 8900">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Bio / Goal</label>
-                        <textarea id="profile-bio" rows="3" placeholder="I am learning full-stack development..."></textarea>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>GitHub URL</label>
-                            <input type="url" id="profile-github" placeholder="https://github.com/...">
-                        </div>
-                        <div class="form-group">
-                            <label>LinkedIn URL</label>
-                            <input type="url" id="profile-linkedin" placeholder="https://linkedin.com/in/...">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Portfolio / Website</label>
-                        <input type="url" id="profile-website" placeholder="https://...">
-                    </div>
-                    
-                    <div style="display:flex; gap:12px; margin-top:24px;">
-                        <button type="submit" class="btn primary"><i class="ph ph-floppy-disk"></i> Save Profile</button>
-                        <button type="button" class="btn secondary" onclick="toggleProfileEdit(false)">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <!-- SYNC SETTINGS -->
-        <section id="sync-section" class="content-section">
             <div class="header">
-                <h1>GitHub Sync & Data</h1>
-                <p>Configure GitHub API as your cloud database to sync data across devices.</p>
+                <h1>Account Settings</h1>
+                <p>Manage your profile, sync credentials, and data backups.</p>
             </div>
             
             <div class="home-two-col">
-                <!-- Left: Connection Config -->
+                <!-- Left: Profile Details -->
                 <div class="form-card" style="margin: 0;">
-                    <h3 style="margin-top:0;"><i class="ph ph-plug"></i> Connection</h3>
-                    <form id="sync-form">
-                        <div class="form-group">
-                            <label>GitHub Username <span class="req">*</span></label>
-                            <input type="text" id="sync-github-username" placeholder="e.g. johndoe" required>
+                    <h3 style="margin-top:0;"><i class="ph ph-user"></i> Profile Info</h3>
+                    
+                    <!-- VIEW MODE -->
+                    <div id="profile-view">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                            <div class="avatar-placeholder" id="view-avatar-container" style="margin: 0 0 20px 0;"><i class="ph ph-user"></i></div>
+                            <button class="action-btn edit-btn" onclick="toggleProfileEdit(true)"><i class="ph ph-pencil"></i> Edit Profile</button>
                         </div>
-                        <div class="form-group">
-                            <label>Repository Name <span class="req">*</span></label>
-                            <input type="text" id="sync-github-repo" placeholder="e.g. certFlow" value="learning_path_tracker" required>
+                        <h2 id="view-profile-name" style="margin-bottom: 4px; font-size: 24px;"></h2>
+                        <p id="view-profile-role" style="color:var(--accent-blue); font-weight: 600; font-size: 15px; margin-bottom: 16px;"></p>
+                        <p id="view-profile-email" style="color:var(--text-secondary); font-size: 14px; margin-bottom: 8px; display:flex; align-items:center; gap:6px;"><i class="ph ph-envelope-simple"></i> <span></span></p>
+                        <p id="view-profile-phone" style="color:var(--text-secondary); font-size: 14px; margin-bottom: 24px; display:flex; align-items:center; gap:6px;"><i class="ph ph-phone"></i> <span></span></p>
+                        
+                        <div style="background:var(--bg-sidebar); padding:16px; border-radius:8px; margin-bottom:24px;">
+                            <h4 style="font-size:12px; text-transform:uppercase; color:var(--text-secondary); margin-bottom:8px; letter-spacing:0.05em;">About Me</h4>
+                            <p id="view-profile-bio" style="font-size: 14px; line-height: 1.6; color: var(--text-primary);"></p>
                         </div>
-                        <div class="form-group">
-                            <label>Personal Access Token <span class="req">*</span></label>
-                            <input type="password" id="sync-github-token" placeholder="ghp_..." required>
-                            <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">
-                                Requires `repo` scope. Stored locally on this device only.
-                            </p>
+                        
+                        <div id="view-profile-links" style="display:flex; gap:12px; flex-wrap:wrap;"></div>
+                    </div>
+
+                    <!-- EDIT MODE -->
+                    <form id="profile-form" style="display:none;">
+                        <div style="display:flex; align-items:center; gap:16px; margin-bottom:20px;">
+                            <div class="avatar-placeholder" id="edit-avatar-preview" style="margin:0;"><i class="ph ph-user"></i></div>
+                            <input type="file" id="profile-avatar-upload" accept="image/*" style="font-size: 13px; color: var(--text-secondary);">
                         </div>
-                        <div style="display:flex; gap:12px; margin-top:16px; align-items:center;">
-                            <button type="submit" class="btn primary" id="btn-save-sync"><i class="ph ph-floppy-disk"></i> Save Login</button>
-                            <button type="button" class="btn secondary" id="btn-logout-sync" style="display:none;"><i class="ph ph-sign-out"></i> Log Out</button>
-                            <span id="sync-status-msg" style="font-size:14px; font-weight:500;"></span>
+                        
+                        <div class="form-group">
+                            <label>Display Name</label>
+                            <input type="text" id="profile-name" placeholder="John Doe">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Job Title / Role</label>
+                            <input type="text" id="profile-role" placeholder="e.g. Full-Stack Developer">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" id="profile-email" placeholder="john@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Contact Number</label>
+                                <input type="tel" id="profile-phone" placeholder="+1 234 567 8900">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Bio / Goal</label>
+                            <textarea id="profile-bio" rows="3" placeholder="I am learning full-stack development..."></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>GitHub URL</label>
+                                <input type="url" id="profile-github" placeholder="https://github.com/...">
+                            </div>
+                            <div class="form-group">
+                                <label>LinkedIn URL</label>
+                                <input type="url" id="profile-linkedin" placeholder="https://linkedin.com/in/...">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Portfolio / Website</label>
+                            <input type="url" id="profile-website" placeholder="https://...">
+                        </div>
+                        
+                        <div style="display:flex; gap:12px; margin-top:24px;">
+                            <button type="submit" class="btn primary"><i class="ph ph-floppy-disk"></i> Save Profile</button>
+                            <button type="button" class="btn secondary" onclick="toggleProfileEdit(false)">Cancel</button>
                         </div>
                     </form>
-                    
-                    <div style="background:var(--bg-sidebar); padding:16px; border-radius:8px; margin-top:24px;">
-                        <h4 style="font-size:14px; margin-bottom:8px;">GitHub Status</h4>
-                        <p id="sync-connection-status" style="font-size: 14px; color: var(--text-secondary);">
-                            <i class="ph ph-cloud-slash"></i> Offline (Local Storage only)
-                        </p>
-                    </div>
                 </div>
                 
-                <!-- Right: Actions -->
-                <div class="form-card" style="margin: 0; display:flex; flex-direction:column; gap:20px;">
-                    <h3 style="margin-top:0;"><i class="ph ph-wrench"></i> Actions</h3>
-                    
-                    <div style="display:flex; flex-direction:column; gap:10px;">
-                        <button class="btn secondary" id="btn-sync-push" style="justify-content:center;"><i class="ph ph-upload-simple"></i> Push Changes</button>
-                        <button class="btn secondary" id="btn-sync-pull" style="justify-content:center;"><i class="ph ph-download-simple"></i> Pull Latest</button>
-                        <button class="btn secondary" id="btn-sync-history" style="justify-content:center;"><i class="ph ph-clock-counter-clockwise"></i> View Commit History</button>
-                    </div>
-
-                    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 0;">
-
-                    <div style="display:flex; flex-direction:column; gap:10px;">
-                        <button class="btn secondary" id="btn-sync-backup" style="justify-content:center;"><i class="ph ph-file-zip"></i> Backup JSON</button>
+                <!-- Right: Sync Connection & Control -->
+                <div style="display:flex; flex-direction:column; gap:24px;">
+                    <!-- Connection Details -->
+                    <div class="form-card" style="margin: 0;">
+                        <h3 style="margin-top:0;"><i class="ph ph-plug"></i> GitHub Connection</h3>
+                        <form id="sync-form">
+                            <div class="form-group">
+                                <label>GitHub Username <span class="req">*</span></label>
+                                <input type="text" id="sync-github-username" placeholder="e.g. johndoe" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Repository Name <span class="req">*</span></label>
+                                <input type="text" id="sync-github-repo" placeholder="e.g. certFlow" value="learning_path_tracker" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Personal Access Token <span class="req">*</span></label>
+                                <input type="password" id="sync-github-token" placeholder="ghp_..." required>
+                                <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">
+                                    Requires `repo` scope. Stored locally on this device only.
+                                </p>
+                            </div>
+                            <div style="display:flex; gap:12px; margin-top:16px; align-items:center;">
+                                <button type="submit" class="btn primary" id="btn-save-sync"><i class="ph ph-floppy-disk"></i> Save Login</button>
+                                <button type="button" class="btn secondary" id="btn-logout-sync" style="display:none;"><i class="ph ph-sign-out"></i> Log Out</button>
+                                <span id="sync-status-msg" style="font-size:14px; font-weight:500;"></span>
+                            </div>
+                        </form>
                         
-                        <label for="sync-restore-file" class="btn secondary" style="justify-content:center; cursor:pointer;">
-                            <i class="ph ph-file-arrow-up"></i> Restore Backup
-                        </label>
-                        <input type="file" id="sync-restore-file" accept=".json" style="display:none;">
+                        <div style="background:var(--bg-sidebar); padding:16px; border-radius:8px; margin-top:24px;">
+                            <h4 style="font-size:14px; margin-bottom:8px;">GitHub Status</h4>
+                            <p id="sync-connection-status" style="font-size: 14px; color: var(--text-secondary);">
+                                <i class="ph ph-cloud-slash"></i> Offline (Local Storage only)
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div class="form-card" style="margin: 0; display:flex; flex-direction:column; gap:20px;">
+                        <h3 style="margin-top:0;"><i class="ph ph-wrench"></i> Data Actions</h3>
+                        
+                        <div style="display:flex; flex-direction:column; gap:10px;">
+                            <button class="btn secondary" id="btn-sync-push" style="justify-content:center;"><i class="ph ph-upload-simple"></i> Push Changes</button>
+                            <button class="btn secondary" id="btn-sync-pull" style="justify-content:center;"><i class="ph ph-download-simple"></i> Pull Latest</button>
+                            <button class="btn secondary" id="btn-sync-history" style="justify-content:center;"><i class="ph ph-clock-counter-clockwise"></i> View Commit History</button>
+                        </div>
+
+                        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 0;">
+
+                        <div style="display:flex; flex-direction:column; gap:10px;">
+                            <button class="btn secondary" id="btn-sync-backup" style="justify-content:center;"><i class="ph ph-file-zip"></i> Backup JSON</button>
+                            
+                            <label for="sync-restore-file" class="btn secondary" style="justify-content:center; cursor:pointer;">
+                                <i class="ph ph-file-arrow-up"></i> Restore Backup
+                            </label>
+                            <input type="file" id="sync-restore-file" accept=".json" style="display:none;">
+                        </div>
+                    </div>
+                    
+                    <!-- Commit History Panel (Hidden by default) -->
+                    <div id="commit-history-panel" class="form-card" style="display:none; margin:0;">
+                        <h3 style="margin-top:0;"><i class="ph ph-clock-counter-clockwise"></i> Recent Commits</h3>
+                        <div id="commit-history-list" style="max-height: 300px; overflow-y: auto; font-size:14px;">
+                            <!-- Commits will be injected here -->
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Commit History Panel (Hidden by default) -->
-            <div id="commit-history-panel" class="form-card" style="display:none; margin-top:24px;">
-                <h3 style="margin-top:0;"><i class="ph ph-clock-counter-clockwise"></i> Recent Commits</h3>
-                <div id="commit-history-list" style="max-height: 300px; overflow-y: auto; font-size:14px;">
-                    <!-- Commits will be injected here -->
-                </div>
-            </div>
-            
         </section>
 
     </main>

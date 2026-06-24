@@ -93,7 +93,7 @@ function setupSyncUI() {
             await loadState();
             renderAll();
             updateConnectionStatus();
-            switchTab('sync-section');
+            switchTab('profile-section');
         }
     });
 
@@ -161,7 +161,7 @@ function setupSyncUI() {
 // ====================================================
 function switchTab(targetId) {
     if (!githubConfig.token) {
-        targetId = 'sync-section';
+        targetId = 'profile-section';
     }
 
     const navItems = document.querySelectorAll('.nav-item');
@@ -180,7 +180,7 @@ function updateSidebarLocks() {
     
     navItems.forEach(item => {
         const target = item.getAttribute('data-target');
-        if (target === 'sync-section') return; // Always keep Sync unlocked
+        if (target === 'profile-section') return; // Always keep Profile unlocked
         
         // Remove existing lock icon if present
         const existingLock = item.querySelector('.ph-lock-simple');
