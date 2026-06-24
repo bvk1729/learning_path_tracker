@@ -1,4 +1,4 @@
-﻿import { appState, loadState, saveStateLocally, saveToGitHubAsync, downloadBackup, restoreBackup } from './dataStore.js';
+import { appState, loadState, saveStateLocally, saveToGitHubAsync, downloadBackup, restoreBackup } from './dataStore.js';
 import { githubConfig, initGithubConfig, saveGithubConfig, fetchCommitHistory } from './sync/github.js';
 
 let activeSkillFilter  = 'all';
@@ -512,6 +512,7 @@ function toggleProfileEdit(showEdit) {
     document.getElementById('profile-form').style.display = showEdit ? 'block' : 'none';
     if (showEdit) renderProfile(); // Refresh input values
 }
+window.toggleProfileEdit = toggleProfileEdit;
 
 // ====================================================
 // DROPDOWNS
