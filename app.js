@@ -1,134 +1,5 @@
-// ====================================================
-// DEFAULT DATA — Pre-populated categories & skills
-// ====================================================
-const DEFAULT_CATEGORIES = [
-    { id: 'dc-1', name: 'Programming Languages', color: 'blue'   },
-    { id: 'dc-2', name: 'Data & Analytics',       color: 'green'  },
-    { id: 'dc-3', name: 'AI & Machine Learning',  color: 'purple' },
-    { id: 'dc-4', name: 'Cloud & DevOps',         color: 'orange' },
-    { id: 'dc-5', name: 'Web Development',        color: 'cyan'   },
-    { id: 'dc-6', name: 'Productivity & Tools',   color: 'yellow' },
-    { id: 'dc-7', name: 'Design & UX',            color: 'pink'   },
-    { id: 'dc-8', name: 'Cybersecurity',          color: 'red'    },
-];
-
-const DEFAULT_SKILLS = [
-    // Programming Languages
-    { id: 'ds-1',  name: 'Python',               categoryId: 'dc-1' },
-    { id: 'ds-2',  name: 'Java',                 categoryId: 'dc-1' },
-    { id: 'ds-3',  name: 'JavaScript',           categoryId: 'dc-1' },
-    { id: 'ds-4',  name: 'TypeScript',           categoryId: 'dc-1' },
-    { id: 'ds-5',  name: 'C++',                  categoryId: 'dc-1' },
-    { id: 'ds-6',  name: 'C#',                   categoryId: 'dc-1' },
-    { id: 'ds-7',  name: 'R',                    categoryId: 'dc-1' },
-    { id: 'ds-8',  name: 'Go',                   categoryId: 'dc-1' },
-    { id: 'ds-9',  name: 'Swift',                categoryId: 'dc-1' },
-    { id: 'ds-10', name: 'Kotlin',               categoryId: 'dc-1' },
-    { id: 'ds-11', name: 'SQL',                  categoryId: 'dc-1' },
-    { id: 'ds-12', name: 'PHP',                  categoryId: 'dc-1' },
-    { id: 'ds-13', name: 'Rust',                 categoryId: 'dc-1' },
-    { id: 'ds-14', name: 'Scala',                categoryId: 'dc-1' },
-    { id: 'ds-15', name: 'MATLAB',               categoryId: 'dc-1' },
-    // Data & Analytics
-    { id: 'ds-16', name: 'Power BI',             categoryId: 'dc-2' },
-    { id: 'ds-17', name: 'Tableau',              categoryId: 'dc-2' },
-    { id: 'ds-18', name: 'Excel',                categoryId: 'dc-2' },
-    { id: 'ds-19', name: 'Google Analytics',     categoryId: 'dc-2' },
-    { id: 'ds-20', name: 'Looker',               categoryId: 'dc-2' },
-    { id: 'ds-21', name: 'Google Data Studio',   categoryId: 'dc-2' },
-    { id: 'ds-22', name: 'Alteryx',              categoryId: 'dc-2' },
-    { id: 'ds-23', name: 'Apache Spark',         categoryId: 'dc-2' },
-    { id: 'ds-24', name: 'Pandas',               categoryId: 'dc-2' },
-    { id: 'ds-25', name: 'NumPy',                categoryId: 'dc-2' },
-    { id: 'ds-26', name: 'Statistics',           categoryId: 'dc-2' },
-    { id: 'ds-27', name: 'Qlik',                 categoryId: 'dc-2' },
-    { id: 'ds-28', name: 'dbt',                  categoryId: 'dc-2' },
-    // AI & Machine Learning
-    { id: 'ds-29', name: 'Machine Learning',      categoryId: 'dc-3' },
-    { id: 'ds-30', name: 'Deep Learning',         categoryId: 'dc-3' },
-    { id: 'ds-31', name: 'NLP',                   categoryId: 'dc-3' },
-    { id: 'ds-32', name: 'Computer Vision',       categoryId: 'dc-3' },
-    { id: 'ds-33', name: 'Generative AI',         categoryId: 'dc-3' },
-    { id: 'ds-34', name: 'TensorFlow',            categoryId: 'dc-3' },
-    { id: 'ds-35', name: 'PyTorch',               categoryId: 'dc-3' },
-    { id: 'ds-36', name: 'Scikit-learn',          categoryId: 'dc-3' },
-    { id: 'ds-37', name: 'Hugging Face',          categoryId: 'dc-3' },
-    { id: 'ds-38', name: 'Prompt Engineering',    categoryId: 'dc-3' },
-    { id: 'ds-39', name: 'MLOps',                 categoryId: 'dc-3' },
-    { id: 'ds-40', name: 'Reinforcement Learning',categoryId: 'dc-3' },
-    { id: 'ds-41', name: 'LLMs',                  categoryId: 'dc-3' },
-    { id: 'ds-42', name: 'RAG',                   categoryId: 'dc-3' },
-    // Cloud & DevOps
-    { id: 'ds-43', name: 'AWS',                   categoryId: 'dc-4' },
-    { id: 'ds-44', name: 'Azure',                 categoryId: 'dc-4' },
-    { id: 'ds-45', name: 'Google Cloud',          categoryId: 'dc-4' },
-    { id: 'ds-46', name: 'Docker',                categoryId: 'dc-4' },
-    { id: 'ds-47', name: 'Kubernetes',            categoryId: 'dc-4' },
-    { id: 'ds-48', name: 'Terraform',             categoryId: 'dc-4' },
-    { id: 'ds-49', name: 'CI/CD',                 categoryId: 'dc-4' },
-    { id: 'ds-50', name: 'Jenkins',               categoryId: 'dc-4' },
-    { id: 'ds-51', name: 'Git',                   categoryId: 'dc-4' },
-    { id: 'ds-52', name: 'Linux',                 categoryId: 'dc-4' },
-    { id: 'ds-53', name: 'Ansible',               categoryId: 'dc-4' },
-    { id: 'ds-54', name: 'GitHub Actions',        categoryId: 'dc-4' },
-    // Web Development
-    { id: 'ds-55', name: 'HTML & CSS',            categoryId: 'dc-5' },
-    { id: 'ds-56', name: 'React',                 categoryId: 'dc-5' },
-    { id: 'ds-57', name: 'Angular',               categoryId: 'dc-5' },
-    { id: 'ds-58', name: 'Vue.js',                categoryId: 'dc-5' },
-    { id: 'ds-59', name: 'Node.js',               categoryId: 'dc-5' },
-    { id: 'ds-60', name: 'Next.js',               categoryId: 'dc-5' },
-    { id: 'ds-61', name: 'Django',                categoryId: 'dc-5' },
-    { id: 'ds-62', name: 'Flask',                 categoryId: 'dc-5' },
-    { id: 'ds-63', name: 'FastAPI',               categoryId: 'dc-5' },
-    { id: 'ds-64', name: 'REST APIs',             categoryId: 'dc-5' },
-    { id: 'ds-65', name: 'GraphQL',               categoryId: 'dc-5' },
-    { id: 'ds-66', name: 'Tailwind CSS',          categoryId: 'dc-5' },
-    { id: 'ds-67', name: 'Bootstrap',             categoryId: 'dc-5' },
-    // Productivity & Tools
-    { id: 'ds-68', name: 'Microsoft Office',      categoryId: 'dc-6' },
-    { id: 'ds-69', name: 'Google Workspace',      categoryId: 'dc-6' },
-    { id: 'ds-70', name: 'Notion',                categoryId: 'dc-6' },
-    { id: 'ds-71', name: 'Jira',                  categoryId: 'dc-6' },
-    { id: 'ds-72', name: 'Confluence',            categoryId: 'dc-6' },
-    { id: 'ds-73', name: 'Trello',                categoryId: 'dc-6' },
-    { id: 'ds-74', name: 'Asana',                 categoryId: 'dc-6' },
-    { id: 'ds-75', name: 'Slack',                 categoryId: 'dc-6' },
-    { id: 'ds-76', name: 'Power Automate',        categoryId: 'dc-6' },
-    { id: 'ds-77', name: 'Power Apps',            categoryId: 'dc-6' },
-    { id: 'ds-78', name: 'SharePoint',            categoryId: 'dc-6' },
-    // Design & UX
-    { id: 'ds-79', name: 'Figma',                 categoryId: 'dc-7' },
-    { id: 'ds-80', name: 'Adobe XD',              categoryId: 'dc-7' },
-    { id: 'ds-81', name: 'Canva',                 categoryId: 'dc-7' },
-    { id: 'ds-82', name: 'UI/UX Design',          categoryId: 'dc-7' },
-    { id: 'ds-83', name: 'Wireframing',           categoryId: 'dc-7' },
-    { id: 'ds-84', name: 'Prototyping',           categoryId: 'dc-7' },
-    { id: 'ds-85', name: 'Adobe Photoshop',       categoryId: 'dc-7' },
-    { id: 'ds-86', name: 'Adobe Illustrator',     categoryId: 'dc-7' },
-    { id: 'ds-87', name: 'Sketch',                categoryId: 'dc-7' },
-    // Cybersecurity
-    { id: 'ds-88', name: 'Network Security',      categoryId: 'dc-8' },
-    { id: 'ds-89', name: 'Ethical Hacking',       categoryId: 'dc-8' },
-    { id: 'ds-90', name: 'Penetration Testing',   categoryId: 'dc-8' },
-    { id: 'ds-91', name: 'CISSP',                 categoryId: 'dc-8' },
-    { id: 'ds-92', name: 'SOC Analysis',          categoryId: 'dc-8' },
-    { id: 'ds-93', name: 'Cryptography',          categoryId: 'dc-8' },
-    { id: 'ds-94', name: 'SIEM',                  categoryId: 'dc-8' },
-    { id: 'ds-95', name: 'Cloud Security',        categoryId: 'dc-8' },
-    { id: 'ds-96', name: 'Zero Trust',            categoryId: 'dc-8' },
-];
-
-// ====================================================
-// APP STATE
-// ====================================================
-let appState = {
-    profile:    { name: '', email: '', bio: '' },
-    categories: [],
-    providers:  [],
-    skills:     [],
-    courses:    []
-};
+﻿import { appState, loadState, saveStateLocally, saveToGitHubAsync, downloadBackup, restoreBackup } from './dataStore.js';
+import { githubConfig, initGithubConfig, saveGithubConfig, fetchCommitHistory } from './sync/github.js';
 
 let activeSkillFilter  = 'all';
 let selectedSkillIds   = [];   // for the skills picker (add course)
@@ -139,6 +10,7 @@ let skillsPickerMode   = 'add'; // 'add' | 'edit'
 // BOOT
 // ====================================================
 document.addEventListener('DOMContentLoaded', async () => {
+    initGithubConfig();
     await loadState();
     setupNavigation();
     setupManageTabs();
@@ -152,240 +24,114 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // ====================================================
-// GITHUB SYNC & PERSISTENCE
+// STATE UPDATER UTILITY
 // ====================================================
-let githubConfig = { username: '', repo: 'learning_path_tracker', token: '' };
-let githubShas = {};
-
-async function fetchFromGitHub(filename) {
-    // 1. If we have config and a token, use the GitHub API to bypass cache
-    if (githubConfig.username && githubConfig.repo && githubConfig.token) {
-        try {
-            const url = `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/data/${filename}`;
-            const response = await fetch(url, {
-                headers: { 'Authorization': `token ${githubConfig.token}` }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                githubShas[filename] = data.sha;
-                const contentStr = decodeURIComponent(escape(atob(data.content)));
-                return JSON.parse(contentStr);
-            }
-        } catch (e) {
-            console.warn(`API fetch failed for ${filename}, falling back to relative fetch...`, e);
-        }
-    }
-
-    // 2. Fallback to relative fetch for public visitors or if API fails
-    try {
-        const response = await fetch(`data/${filename}?t=${Date.now()}`);
-        if (response.ok) {
-            return await response.json();
-        }
-    } catch (e) {
-        console.warn(`Relative fetch failed for ${filename}`, e);
-    }
-    
-    return null;
-}
-
-async function saveToGitHubAsync() {
-    if (!githubConfig.username || !githubConfig.repo || !githubConfig.token) return;
-    
-    const statusMsg = document.getElementById('sync-status-msg');
-    if (statusMsg) {
-        statusMsg.innerText = 'Syncing...';
-        statusMsg.style.color = 'var(--accent-orange)';
-    }
-
-    try {
-        await commitFile('courses.json', appState.courses);
-        await commitFile('skills.json', appState.skills);
-        await commitFile('providers.json', appState.providers);
-        await commitFile('categories.json', appState.categories);
-        await commitFile('profile.json', appState.profile);
-        
-        if (statusMsg) {
-            statusMsg.innerText = 'All synced!';
-            statusMsg.style.color = 'var(--accent-green)';
-            setTimeout(() => statusMsg.innerText = '', 3000);
-        }
-    } catch (e) {
-        console.error('Error syncing to GitHub:', e);
-        if (statusMsg) {
-            statusMsg.innerText = 'Sync failed.';
-            statusMsg.style.color = 'var(--accent-red)';
-            setTimeout(() => statusMsg.innerText = '', 3000);
-        }
-    }
-}
-
-async function commitFile(filename, dataObj) {
-    const url = `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/data/${filename}`;
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(dataObj, null, 2))));
-    
-    const body = {
-        message: `Update ${filename}`,
-        content: content
-    };
-    if (githubShas[filename]) body.sha = githubShas[filename];
-    
-    const response = await fetch(url, {
-        method: 'PUT',
-        headers: {
-            'Authorization': `token ${githubConfig.token}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    });
-    
-    if (response.ok) {
-        const data = await response.json();
-        githubShas[filename] = data.content.sha;
-    } else {
-        throw new Error(`Failed to commit ${filename}`);
-    }
-}
-
-function setupSyncUI() {
-    const savedConfig = localStorage.getItem('certflowGithubConfig');
-    if (savedConfig) {
-        githubConfig = JSON.parse(savedConfig);
-        const usernameInput = document.getElementById('sync-github-username');
-        const repoInput = document.getElementById('sync-github-repo');
-        const tokenInput = document.getElementById('sync-github-token');
-        if (usernameInput) usernameInput.value = githubConfig.username || '';
-        if (repoInput) repoInput.value = githubConfig.repo || 'learning_path_tracker';
-        if (tokenInput) tokenInput.value = githubConfig.token || '';
-        
-        if (githubConfig.username && githubConfig.repo) {
-            const statusEl = document.getElementById('sync-connection-status');
-            if (statusEl) {
-                statusEl.innerHTML = `<i class="ph ph-cloud-check"></i> Connected as ${githubConfig.username}/${githubConfig.repo}`;
-                statusEl.style.color = 'var(--accent-green)';
-            }
-        }
-    }
-
-    const syncForm = document.getElementById('sync-form');
-    if (syncForm) {
-        syncForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            githubConfig = {
-                username: document.getElementById('sync-github-username').value.trim(),
-                repo: document.getElementById('sync-github-repo').value.trim(),
-                token: document.getElementById('sync-github-token').value.trim()
-            };
-            localStorage.setItem('certflowGithubConfig', JSON.stringify(githubConfig));
-            
-            const btn = document.getElementById('btn-save-sync');
-            btn.innerText = 'Saved!';
-            setTimeout(() => btn.innerHTML = '<i class="ph ph-floppy-disk"></i> Save Settings', 2000);
-            
-            const statusEl = document.getElementById('sync-connection-status');
-            statusEl.innerHTML = `<i class="ph ph-cloud-check"></i> Connected as ${githubConfig.username}/${githubConfig.repo}`;
-            statusEl.style.color = 'var(--accent-green)';
-            
-            // Push initial data to repo if user just configured it
-            saveToGitHubAsync();
-        });
-    }
-}
-
-async function loadState() {
-    const savedConfig = localStorage.getItem('certflowGithubConfig');
-    if (savedConfig) {
-        githubConfig = JSON.parse(savedConfig);
-    }
-
-    let loadedFromGitHub = false;
-    
-    // Always attempt to fetch (fetchFromGitHub handles the fallback to relative fetch for public visitors)
-    try {
-        const [ghCourses, ghSkills, ghProviders, ghCategories, ghProfile] = await Promise.all([
-            fetchFromGitHub('courses.json'),
-            fetchFromGitHub('skills.json'),
-            fetchFromGitHub('providers.json'),
-            fetchFromGitHub('categories.json'),
-            fetchFromGitHub('profile.json')
-        ]);
-        
-        if (ghCourses || ghSkills || ghProviders || ghCategories || ghProfile) {
-            appState.courses = ghCourses || [];
-            appState.skills = ghSkills || [];
-            appState.providers = ghProviders || [];
-            appState.categories = ghCategories || [];
-            appState.profile = ghProfile || {};
-            loadedFromGitHub = true;
-        }
-    } catch (e) {
-        console.warn('Failed to load from data directory or GitHub, falling back to local storage', e);
-    }
-
-    if (!loadedFromGitHub) {
-        const saved = localStorage.getItem('certflowState');
-        if (saved) {
-            appState = JSON.parse(saved);
-        }
-    }
-
-    // Default fallbacks and normalization
-    if (!appState.categories) appState.categories = [];
-    if (!appState.skills) appState.skills = [];
-    if (!appState.providers) appState.providers = [];
-    if (!appState.courses) appState.courses = [];
-    if (!appState.profile) appState.profile = {};
-
-    appState.categories.forEach(c => c.id = String(c.id));
-    appState.providers.forEach(p => p.id = String(p.id));
-    appState.skills.forEach(s => {
-        s.id = String(s.id);
-        if (s.categoryId) s.categoryId = String(s.categoryId);
-    });
-    appState.courses.forEach(c => {
-        c.id = String(c.id);
-        if (c.providerId) c.providerId = String(c.providerId);
-        if (c.skillIds) c.skillIds = c.skillIds.map(String);
-    });
-
-    if (!appState.v2Merged) {
-        const skillsToAdd = JSON.parse(JSON.stringify(DEFAULT_SKILLS));
-        DEFAULT_CATEGORIES.forEach(dc => {
-            const existingCat = appState.categories.find(c => c.name.toLowerCase() === dc.name.toLowerCase());
-            if (existingCat) {
-                skillsToAdd.forEach(ds => {
-                    if (ds.categoryId === dc.id) ds.categoryId = existingCat.id;
-                });
-            } else {
-                appState.categories.push(dc);
-            }
-        });
-
-        skillsToAdd.forEach(ds => {
-            if (!appState.skills.find(s => s.name.toLowerCase() === ds.name.toLowerCase())) {
-                appState.skills.push(ds);
-            }
-        });
-        appState.v2Merged = true;
-        localStorage.setItem('certflowState', JSON.stringify(appState));
-        
-        if (githubConfig.token) saveToGitHubAsync();
-    }
-
-    if (!loadedFromGitHub && !localStorage.getItem('certflowState')) {
-        appState.categories = [...DEFAULT_CATEGORIES];
-        appState.skills     = [...DEFAULT_SKILLS];
-        appState.v2Merged   = true;
-    }
-}
-
 function saveState() {
-    localStorage.setItem('certflowState', JSON.stringify(appState));
+    saveStateLocally();
     renderAll();
-    
     if (githubConfig.token) {
-        saveToGitHubAsync();
+        saveToGitHubAsync(document.getElementById('sync-status-msg'));
     }
+}
+
+// ====================================================
+// SYNC UI LOGIC
+// ====================================================
+function setupSyncUI() {
+    const form = document.getElementById('sync-form');
+    const uInput = document.getElementById('sync-github-username');
+    const rInput = document.getElementById('sync-github-repo');
+    const tInput = document.getElementById('sync-github-token');
+    const statusText = document.getElementById('sync-connection-status');
+    const statusMsg = document.getElementById('sync-status-msg');
+
+    if (githubConfig) {
+        uInput.value = githubConfig.username || '';
+        rInput.value = githubConfig.repo || 'learning_path_tracker';
+        tInput.value = githubConfig.token || '';
+        updateConnectionStatus();
+    }
+
+    function updateConnectionStatus() {
+        if (githubConfig.username && githubConfig.repo && githubConfig.token) {
+            statusText.innerHTML = `<i class="ph ph-cloud-check" style="color:var(--accent-green)"></i> <span style="color:var(--accent-green)">Connected to ${githubConfig.username}/${githubConfig.repo}</span>`;
+        } else {
+            statusText.innerHTML = `<i class="ph ph-cloud-slash"></i> Offline (Local Storage only)`;
+        }
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        saveGithubConfig({
+            username: uInput.value.trim(),
+            repo: rInput.value.trim(),
+            token: tInput.value.trim()
+        });
+        statusMsg.innerText = 'Saved!';
+        statusMsg.style.color = 'var(--accent-green)';
+        updateConnectionStatus();
+        setTimeout(() => { statusMsg.innerText = ''; }, 3000);
+        
+        await loadState();
+        renderAll();
+    });
+
+    document.getElementById('btn-sync-push')?.addEventListener('click', async () => {
+        await saveToGitHubAsync(statusMsg);
+    });
+
+    document.getElementById('btn-sync-pull')?.addEventListener('click', async () => {
+        statusMsg.innerText = 'Pulling...';
+        statusMsg.style.color = 'var(--accent-blue)';
+        await loadState();
+        renderAll();
+        statusMsg.innerText = 'Pulled successfully!';
+        statusMsg.style.color = 'var(--accent-green)';
+        setTimeout(() => { statusMsg.innerText = ''; }, 3000);
+    });
+
+    document.getElementById('btn-sync-backup')?.addEventListener('click', () => {
+        downloadBackup();
+    });
+
+    document.getElementById('sync-restore-file')?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = async (evt) => {
+            const success = restoreBackup(evt.target.result);
+            if (success) {
+                renderAll();
+                if (githubConfig.token) await saveToGitHubAsync(statusMsg);
+                alert("Backup restored successfully!");
+            } else {
+                alert("Invalid backup file.");
+            }
+        };
+        reader.readAsText(file);
+    });
+
+    document.getElementById('btn-sync-history')?.addEventListener('click', async () => {
+        const panel = document.getElementById('commit-history-panel');
+        const list = document.getElementById('commit-history-list');
+        panel.style.display = 'block';
+        list.innerHTML = 'Loading commits...';
+        
+        const commits = await fetchCommitHistory();
+        if (commits.length === 0) {
+            list.innerHTML = 'No commits found or API limit reached.';
+            return;
+        }
+        
+        list.innerHTML = commits.map(c => `
+            <div style="padding:10px 0; border-bottom:1px solid var(--border-color);">
+                <div style="font-weight:600; margin-bottom:4px;">${c.commit.message}</div>
+                <div style="color:var(--text-secondary); font-size:12px;">
+                    ${new Date(c.commit.author.date).toLocaleString()} by ${c.commit.author.name}
+                </div>
+            </div>
+        `).join('');
+    });
 }
 
 // ====================================================
