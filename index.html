@@ -27,6 +27,7 @@
             <li class="nav-item" data-target="progress-section"><i class="ph ph-chart-line-up"></i> Progress</li>
             <li class="nav-item" data-target="manage-section"><i class="ph ph-gear"></i> Manage</li>
             <li class="nav-item" data-target="profile-section"><i class="ph ph-user"></i> Profile</li>
+            <li class="nav-item" data-target="sync-section"><i class="ph ph-cloud-arrow-up"></i> Sync</li>
         </ul>
     </nav>
 
@@ -362,6 +363,44 @@
                         <button type="button" class="btn secondary" onclick="toggleProfileEdit(false)">Cancel</button>
                     </div>
                 </form>
+            </div>
+        </section>
+
+        <!-- SYNC SETTINGS -->
+        <section id="sync-section" class="content-section" style="display:none;">
+            <div class="header">
+                <h1>GitHub Sync</h1>
+                <p>Configure GitHub API as your cloud database to sync data across devices.</p>
+            </div>
+            <div class="form-card max-w-md">
+                <form id="sync-form">
+                    <div class="form-group">
+                        <label>GitHub Username <span class="req">*</span></label>
+                        <input type="text" id="sync-github-username" placeholder="e.g. johndoe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Repository Name <span class="req">*</span></label>
+                        <input type="text" id="sync-github-repo" placeholder="e.g. certFlow" value="learning_path_tracker" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Personal Access Token (PAT) <span class="req">*</span></label>
+                        <input type="password" id="sync-github-token" placeholder="ghp_..." required>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">
+                            Requires `repo` scope. Stored locally on this device only.
+                        </p>
+                    </div>
+                    <div style="display:flex; gap:12px; margin-top:24px; align-items:center;">
+                        <button type="submit" class="btn primary" id="btn-save-sync"><i class="ph ph-floppy-disk"></i> Save Settings</button>
+                        <span id="sync-status-msg" style="font-size:14px; font-weight:500;"></span>
+                    </div>
+                </form>
+                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 24px 0;">
+                <div style="background:var(--bg-sidebar); padding:16px; border-radius:8px;">
+                    <h4 style="font-size:14px; margin-bottom:8px;">Status</h4>
+                    <p id="sync-connection-status" style="font-size: 14px; color: var(--text-secondary);">
+                        <i class="ph ph-cloud-slash"></i> Offline (Local Storage only)
+                    </p>
+                </div>
             </div>
         </section>
 

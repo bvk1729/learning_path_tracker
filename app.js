@@ -138,8 +138,8 @@ let skillsPickerMode   = 'add'; // 'add' | 'edit'
 // ====================================================
 // BOOT
 // ====================================================
-document.addEventListener('DOMContentLoaded', () => {
-    loadState();
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadState();
     setupNavigation();
     setupManageTabs();
     setupForms();
@@ -147,59 +147,232 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSkillsPicker();
     setupEditModal();
     setupHomeExtras();
+    setupSyncUI();
     renderAll();
 });
 
 // ====================================================
-// PERSISTENCE
+// GITHUB SYNC & PERSISTENCE
 // ====================================================
-function loadState() {
-    const saved = localStorage.getItem('certflowState');
-    if (saved) {
-        appState = JSON.parse(saved);
-        if (!appState.categories) appState.categories = [];
-        if (!appState.skills) appState.skills = [];
-        if (!appState.providers) appState.providers = [];
-        if (!appState.courses) appState.courses = [];
+let githubConfig = { username: '', repo: 'learning_path_tracker', token: '' };
+let githubShas = {};
 
-        // Normalize all IDs to strings to fix strict equality (===) bugs with old numeric IDs
-        appState.categories.forEach(c => c.id = String(c.id));
-        appState.providers.forEach(p => p.id = String(p.id));
-        appState.skills.forEach(s => {
-            s.id = String(s.id);
-            if (s.categoryId) s.categoryId = String(s.categoryId);
-        });
-        appState.courses.forEach(c => {
-            c.id = String(c.id);
-            if (c.providerId) c.providerId = String(c.providerId);
-            if (c.skillIds) c.skillIds = c.skillIds.map(String);
-        });
-
-        // Smart merge defaults to prevent duplicates, ONLY ONCE
-        if (!appState.v2Merged) {
-            const skillsToAdd = JSON.parse(JSON.stringify(DEFAULT_SKILLS));
-            
-            DEFAULT_CATEGORIES.forEach(dc => {
-                const existingCat = appState.categories.find(c => c.name.toLowerCase() === dc.name.toLowerCase());
-                if (existingCat) {
-                    skillsToAdd.forEach(ds => {
-                        if (ds.categoryId === dc.id) ds.categoryId = existingCat.id;
-                    });
-                } else {
-                    appState.categories.push(dc);
-                }
+async function fetchFromGitHub(filename) {
+    // 1. If we have config and a token, use the GitHub API to bypass cache
+    if (githubConfig.username && githubConfig.repo && githubConfig.token) {
+        try {
+            const url = `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/data/${filename}`;
+            const response = await fetch(url, {
+                headers: { 'Authorization': `token ${githubConfig.token}` }
             });
-
-            skillsToAdd.forEach(ds => {
-                if (!appState.skills.find(s => s.name.toLowerCase() === ds.name.toLowerCase())) {
-                    appState.skills.push(ds);
-                }
-            });
-
-            appState.v2Merged = true;
-            localStorage.setItem('certflowState', JSON.stringify(appState));
+            if (response.ok) {
+                const data = await response.json();
+                githubShas[filename] = data.sha;
+                const contentStr = decodeURIComponent(escape(atob(data.content)));
+                return JSON.parse(contentStr);
+            }
+        } catch (e) {
+            console.warn(`API fetch failed for ${filename}, falling back to relative fetch...`, e);
         }
+    }
+
+    // 2. Fallback to relative fetch for public visitors or if API fails
+    try {
+        const response = await fetch(`data/${filename}?t=${Date.now()}`);
+        if (response.ok) {
+            return await response.json();
+        }
+    } catch (e) {
+        console.warn(`Relative fetch failed for ${filename}`, e);
+    }
+    
+    return null;
+}
+
+async function saveToGitHubAsync() {
+    if (!githubConfig.username || !githubConfig.repo || !githubConfig.token) return;
+    
+    const statusMsg = document.getElementById('sync-status-msg');
+    if (statusMsg) {
+        statusMsg.innerText = 'Syncing...';
+        statusMsg.style.color = 'var(--accent-orange)';
+    }
+
+    try {
+        await commitFile('courses.json', appState.courses);
+        await commitFile('skills.json', appState.skills);
+        await commitFile('providers.json', appState.providers);
+        await commitFile('categories.json', appState.categories);
+        await commitFile('profile.json', appState.profile);
+        
+        if (statusMsg) {
+            statusMsg.innerText = 'All synced!';
+            statusMsg.style.color = 'var(--accent-green)';
+            setTimeout(() => statusMsg.innerText = '', 3000);
+        }
+    } catch (e) {
+        console.error('Error syncing to GitHub:', e);
+        if (statusMsg) {
+            statusMsg.innerText = 'Sync failed.';
+            statusMsg.style.color = 'var(--accent-red)';
+            setTimeout(() => statusMsg.innerText = '', 3000);
+        }
+    }
+}
+
+async function commitFile(filename, dataObj) {
+    const url = `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/data/${filename}`;
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(dataObj, null, 2))));
+    
+    const body = {
+        message: `Update ${filename}`,
+        content: content
+    };
+    if (githubShas[filename]) body.sha = githubShas[filename];
+    
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `token ${githubConfig.token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
+    
+    if (response.ok) {
+        const data = await response.json();
+        githubShas[filename] = data.content.sha;
     } else {
+        throw new Error(`Failed to commit ${filename}`);
+    }
+}
+
+function setupSyncUI() {
+    const savedConfig = localStorage.getItem('certflowGithubConfig');
+    if (savedConfig) {
+        githubConfig = JSON.parse(savedConfig);
+        const usernameInput = document.getElementById('sync-github-username');
+        const repoInput = document.getElementById('sync-github-repo');
+        const tokenInput = document.getElementById('sync-github-token');
+        if (usernameInput) usernameInput.value = githubConfig.username || '';
+        if (repoInput) repoInput.value = githubConfig.repo || 'learning_path_tracker';
+        if (tokenInput) tokenInput.value = githubConfig.token || '';
+        
+        if (githubConfig.username && githubConfig.repo) {
+            const statusEl = document.getElementById('sync-connection-status');
+            if (statusEl) {
+                statusEl.innerHTML = `<i class="ph ph-cloud-check"></i> Connected as ${githubConfig.username}/${githubConfig.repo}`;
+                statusEl.style.color = 'var(--accent-green)';
+            }
+        }
+    }
+
+    const syncForm = document.getElementById('sync-form');
+    if (syncForm) {
+        syncForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            githubConfig = {
+                username: document.getElementById('sync-github-username').value.trim(),
+                repo: document.getElementById('sync-github-repo').value.trim(),
+                token: document.getElementById('sync-github-token').value.trim()
+            };
+            localStorage.setItem('certflowGithubConfig', JSON.stringify(githubConfig));
+            
+            const btn = document.getElementById('btn-save-sync');
+            btn.innerText = 'Saved!';
+            setTimeout(() => btn.innerHTML = '<i class="ph ph-floppy-disk"></i> Save Settings', 2000);
+            
+            const statusEl = document.getElementById('sync-connection-status');
+            statusEl.innerHTML = `<i class="ph ph-cloud-check"></i> Connected as ${githubConfig.username}/${githubConfig.repo}`;
+            statusEl.style.color = 'var(--accent-green)';
+            
+            // Push initial data to repo if user just configured it
+            saveToGitHubAsync();
+        });
+    }
+}
+
+async function loadState() {
+    const savedConfig = localStorage.getItem('certflowGithubConfig');
+    if (savedConfig) {
+        githubConfig = JSON.parse(savedConfig);
+    }
+
+    let loadedFromGitHub = false;
+    
+    // Always attempt to fetch (fetchFromGitHub handles the fallback to relative fetch for public visitors)
+    try {
+        const [ghCourses, ghSkills, ghProviders, ghCategories, ghProfile] = await Promise.all([
+            fetchFromGitHub('courses.json'),
+            fetchFromGitHub('skills.json'),
+            fetchFromGitHub('providers.json'),
+            fetchFromGitHub('categories.json'),
+            fetchFromGitHub('profile.json')
+        ]);
+        
+        if (ghCourses || ghSkills || ghProviders || ghCategories || ghProfile) {
+            appState.courses = ghCourses || [];
+            appState.skills = ghSkills || [];
+            appState.providers = ghProviders || [];
+            appState.categories = ghCategories || [];
+            appState.profile = ghProfile || {};
+            loadedFromGitHub = true;
+        }
+    } catch (e) {
+        console.warn('Failed to load from data directory or GitHub, falling back to local storage', e);
+    }
+
+    if (!loadedFromGitHub) {
+        const saved = localStorage.getItem('certflowState');
+        if (saved) {
+            appState = JSON.parse(saved);
+        }
+    }
+
+    // Default fallbacks and normalization
+    if (!appState.categories) appState.categories = [];
+    if (!appState.skills) appState.skills = [];
+    if (!appState.providers) appState.providers = [];
+    if (!appState.courses) appState.courses = [];
+    if (!appState.profile) appState.profile = {};
+
+    appState.categories.forEach(c => c.id = String(c.id));
+    appState.providers.forEach(p => p.id = String(p.id));
+    appState.skills.forEach(s => {
+        s.id = String(s.id);
+        if (s.categoryId) s.categoryId = String(s.categoryId);
+    });
+    appState.courses.forEach(c => {
+        c.id = String(c.id);
+        if (c.providerId) c.providerId = String(c.providerId);
+        if (c.skillIds) c.skillIds = c.skillIds.map(String);
+    });
+
+    if (!appState.v2Merged) {
+        const skillsToAdd = JSON.parse(JSON.stringify(DEFAULT_SKILLS));
+        DEFAULT_CATEGORIES.forEach(dc => {
+            const existingCat = appState.categories.find(c => c.name.toLowerCase() === dc.name.toLowerCase());
+            if (existingCat) {
+                skillsToAdd.forEach(ds => {
+                    if (ds.categoryId === dc.id) ds.categoryId = existingCat.id;
+                });
+            } else {
+                appState.categories.push(dc);
+            }
+        });
+
+        skillsToAdd.forEach(ds => {
+            if (!appState.skills.find(s => s.name.toLowerCase() === ds.name.toLowerCase())) {
+                appState.skills.push(ds);
+            }
+        });
+        appState.v2Merged = true;
+        localStorage.setItem('certflowState', JSON.stringify(appState));
+        
+        if (githubConfig.token) saveToGitHubAsync();
+    }
+
+    if (!loadedFromGitHub && !localStorage.getItem('certflowState')) {
         appState.categories = [...DEFAULT_CATEGORIES];
         appState.skills     = [...DEFAULT_SKILLS];
         appState.v2Merged   = true;
@@ -209,6 +382,10 @@ function loadState() {
 function saveState() {
     localStorage.setItem('certflowState', JSON.stringify(appState));
     renderAll();
+    
+    if (githubConfig.token) {
+        saveToGitHubAsync();
+    }
 }
 
 // ====================================================
