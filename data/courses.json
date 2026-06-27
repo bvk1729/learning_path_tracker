@@ -22,5 +22,17 @@
     ],
     "status": "Completed",
     "progress": 0
+  },
+  {
+    "id": "1782522518641",
+    "title": "Claude Code 101",
+    "description": "Learn how to use Claude Code effectively in your daily development workflow.",
+    "courseUrl": "https://anthropic.skilljar.com/claude-code-101",
+    "providerId": "1782320719676",
+    "skillIds": [
+      "ds-33"
+    ],
+    "status": "Completed",
+    "progress": 100
   }
 ]
