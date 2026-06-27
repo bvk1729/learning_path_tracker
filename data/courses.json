@@ -58,5 +58,17 @@
     ],
     "status": "Completed",
     "progress": 100
+  },
+  {
+    "id": "1782522635080",
+    "title": "Claude Code in Action",
+    "description": "Practical walkthrough of using Claude Code to accelerate your development workflow",
+    "courseUrl": "https://anthropic.skilljar.com/claude-code-in-action",
+    "providerId": "1782320719676",
+    "skillIds": [
+      "ds-33"
+    ],
+    "status": "In Progress",
+    "progress": 25
   }
 ]
