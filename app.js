@@ -399,6 +399,9 @@ function openEditModal(title, bodyHtml, onSave) {
     // Wire save button inside modal
     const saveBtn = document.getElementById('edit-modal-save');
     if (saveBtn) saveBtn.onclick = () => { onSave(); closeEditModal(); };
+    // Wire cancel button inside modal
+    const cancelBtn = document.getElementById('edit-modal-cancel');
+    if (cancelBtn) cancelBtn.onclick = () => { closeEditModal(); };
 }
 
 function closeEditModal() {
@@ -735,13 +738,24 @@ function renderModifyCourses() {
             <div class="modify-cell"><span class="status-badge ${sc}">${c.status}</span></div>
             <div class="modify-cell">${c.progress}%</div>
             <div class="modify-cell actions-cell">
-                <button class="action-btn edit-btn" onclick="editCourse('${c.id}')"><i class="ph ph-pencil"></i> Edit</button>
-                <button class="action-btn delete-btn" onclick="confirmDelete('course','${c.id}','${c.title}')"><i class="ph ph-trash"></i> Delete</button>
+                <button class="action-btn edit-btn" data-id="${c.id}"><i class="ph ph-pencil"></i> Edit</button>
+                <button class="action-btn delete-btn" data-id="${c.id}" data-title="${c.title}"><i class="ph ph-trash"></i> Delete</button>
             </div>
         </div>`;
     });
     modifyTableShell('modify-courses', 'No courses yet. Add one from Add New → Course.',
         `<div class="modify-row head-row"><div class="modify-cell main-cell">Title</div><div class="modify-cell">Provider</div><div class="modify-cell">Status</div><div class="modify-cell">Progress</div><div class="modify-cell">Actions</div></div>`, rows);
+
+    // Bind event listeners programmatically
+    const el = document.getElementById('modify-courses');
+    if (el) {
+        el.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.onclick = () => editCourse(btn.getAttribute('data-id'));
+        });
+        el.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.onclick = () => confirmDelete('course', btn.getAttribute('data-id'), btn.getAttribute('data-title'));
+        });
+    }
 }
 
 function renderModifyProviders() {
@@ -750,12 +764,23 @@ function renderModifyProviders() {
             <div class="modify-cell main-cell">${p.name}</div>
             <div class="modify-cell">${p.url ? `<a href="${p.url}" target="_blank" style="color:var(--accent-blue);font-size:13px;">${p.url}</a>` : '—'}</div>
             <div class="modify-cell actions-cell">
-                <button class="action-btn edit-btn" onclick="editProvider('${p.id}')"><i class="ph ph-pencil"></i> Edit</button>
-                <button class="action-btn delete-btn" onclick="confirmDelete('provider','${p.id}','${p.name}')"><i class="ph ph-trash"></i> Delete</button>
+                <button class="action-btn edit-btn" data-id="${p.id}"><i class="ph ph-pencil"></i> Edit</button>
+                <button class="action-btn delete-btn" data-id="${p.id}" data-name="${p.name}"><i class="ph ph-trash"></i> Delete</button>
             </div>
         </div>`);
     modifyTableShell('modify-providers', 'No providers yet.',
         `<div class="modify-row head-row"><div class="modify-cell main-cell">Name</div><div class="modify-cell">Website</div><div class="modify-cell">Actions</div></div>`, rows);
+
+    // Bind event listeners programmatically
+    const el = document.getElementById('modify-providers');
+    if (el) {
+        el.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.onclick = () => editProvider(btn.getAttribute('data-id'));
+        });
+        el.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.onclick = () => confirmDelete('provider', btn.getAttribute('data-id'), btn.getAttribute('data-name'));
+        });
+    }
 }
 
 function renderModifyCategories() {
@@ -766,13 +791,24 @@ function renderModifyCategories() {
             <div class="modify-cell main-cell"><span class="cat-badge cat-${c.color}">${c.name}</span></div>
             <div class="modify-cell">${cnt} skill${cnt !== 1 ? 's' : ''}</div>
             <div class="modify-cell actions-cell">
-                <button class="action-btn edit-btn" onclick="editCategory('${c.id}')"><i class="ph ph-pencil"></i> Edit</button>
-                <button class="action-btn delete-btn" onclick="confirmDelete('category','${c.id}','${c.name}')"><i class="ph ph-trash"></i> Delete</button>
+                <button class="action-btn edit-btn" data-id="${c.id}"><i class="ph ph-pencil"></i> Edit</button>
+                <button class="action-btn delete-btn" data-id="${c.id}" data-name="${c.name}"><i class="ph ph-trash"></i> Delete</button>
             </div>
         </div>`;
     });
     modifyTableShell('modify-categories', 'No categories yet.',
         `<div class="modify-row head-row"><div class="modify-cell main-cell">Category</div><div class="modify-cell">Skills</div><div class="modify-cell">Actions</div></div>`, rows);
+
+    // Bind event listeners programmatically
+    const el = document.getElementById('modify-categories');
+    if (el) {
+        el.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.onclick = () => editCategory(btn.getAttribute('data-id'));
+        });
+        el.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.onclick = () => confirmDelete('category', btn.getAttribute('data-id'), btn.getAttribute('data-name'));
+        });
+    }
 }
 
 function renderModifySkills() {
@@ -783,13 +819,24 @@ function renderModifySkills() {
             <div class="modify-cell main-cell">${s.name}</div>
             <div class="modify-cell">${cat ? `<span class="cat-badge cat-${cat.color}">${cat.name}</span>` : '—'}</div>
             <div class="modify-cell actions-cell">
-                <button class="action-btn edit-btn" onclick="editSkill('${s.id}')"><i class="ph ph-pencil"></i> Edit</button>
-                <button class="action-btn delete-btn" onclick="confirmDelete('skill','${s.id}','${s.name}')"><i class="ph ph-trash"></i> Delete</button>
+                <button class="action-btn edit-btn" data-id="${s.id}"><i class="ph ph-pencil"></i> Edit</button>
+                <button class="action-btn delete-btn" data-id="${s.id}" data-name="${s.name}"><i class="ph ph-trash"></i> Delete</button>
             </div>
         </div>`;
     });
     modifyTableShell('modify-skills', 'No skills yet.',
         `<div class="modify-row head-row"><div class="modify-cell main-cell">Skill</div><div class="modify-cell">Category</div><div class="modify-cell">Actions</div></div>`, rows);
+
+    // Bind event listeners programmatically
+    const el = document.getElementById('modify-skills');
+    if (el) {
+        el.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.onclick = () => editSkill(btn.getAttribute('data-id'));
+        });
+        el.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.onclick = () => confirmDelete('skill', btn.getAttribute('data-id'), btn.getAttribute('data-name'));
+        });
+    }
 }
 
 // ====================================================
@@ -828,7 +875,7 @@ function editCourse(id) {
             </div>
         </div>
         <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:20px;">
-            <button class="btn secondary" onclick="closeEditModal()">Cancel</button>
+            <button id="edit-modal-cancel" class="btn secondary">Cancel</button>
             <button id="edit-modal-save" class="btn primary"><i class="ph ph-floppy-disk"></i> Save Changes</button>
         </div>`;
 
@@ -866,7 +913,7 @@ function editProvider(id) {
         <div class="form-group"><label>Provider Name</label><input id="ep-name" class="modal-input" value="${p.name}"></div>
         <div class="form-group"><label>Website URL</label><input id="ep-url" class="modal-input" type="url" value="${p.url || ''}"></div>
         <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:20px;">
-            <button class="btn secondary" onclick="closeEditModal()">Cancel</button>
+            <button id="edit-modal-cancel" class="btn secondary">Cancel</button>
             <button id="edit-modal-save" class="btn primary"><i class="ph ph-floppy-disk"></i> Save Changes</button>
         </div>`;
     openEditModal('Edit Provider', body, () => {
@@ -885,7 +932,7 @@ function editCategory(id) {
         <div class="form-group"><label>Category Name</label><input id="ecat-name" class="modal-input" value="${cat.name}"></div>
         <div class="form-group"><label>Colour Theme</label><select id="ecat-color" class="modal-input">${colorOpts}</select></div>
         <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:20px;">
-            <button class="btn secondary" onclick="closeEditModal()">Cancel</button>
+            <button id="edit-modal-cancel" class="btn secondary">Cancel</button>
             <button id="edit-modal-save" class="btn primary"><i class="ph ph-floppy-disk"></i> Save Changes</button>
         </div>`;
     openEditModal('Edit Category', body, () => {
@@ -904,7 +951,7 @@ function editSkill(id) {
         <div class="form-group"><label>Skill Name</label><input id="es-name" class="modal-input" value="${s.name}"></div>
         <div class="form-group"><label>Category</label><select id="es-cat" class="modal-input">${catOpts}</select></div>
         <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:20px;">
-            <button class="btn secondary" onclick="closeEditModal()">Cancel</button>
+            <button id="edit-modal-cancel" class="btn secondary">Cancel</button>
             <button id="edit-modal-save" class="btn primary"><i class="ph ph-floppy-disk"></i> Save Changes</button>
         </div>`;
     openEditModal('Edit Skill', body, () => {
@@ -924,8 +971,11 @@ function confirmDelete(type, id, label) {
     const actionsCell = row.querySelector('.actions-cell');
     actionsCell.innerHTML = `
         <span style="font-size:13px;color:var(--text-secondary);margin-right:8px;">Delete "<strong style="color:#fff">${label}</strong>"?</span>
-        <button class="action-btn confirm-btn" onclick="doDelete('${type}','${id}')"><i class="ph ph-check"></i> Yes, Delete</button>
-        <button class="action-btn cancel-btn" onclick="renderModifyTables()"><i class="ph ph-x"></i> Cancel</button>`;
+        <button class="action-btn confirm-btn"><i class="ph ph-check"></i> Yes, Delete</button>
+        <button class="action-btn cancel-btn"><i class="ph ph-x"></i> Cancel</button>`;
+
+    actionsCell.querySelector('.confirm-btn').onclick = () => doDelete(type, id);
+    actionsCell.querySelector('.cancel-btn').onclick = () => renderModifyTables();
 }
 
 function doDelete(type, id) {
